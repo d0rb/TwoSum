@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         for(int i = 0 ; i < final_array.size() ; i+=2){
-            finalResult+="ID:"+final_array.get(i).getBagID()+"KG:"+final_array.get(i).getBagSizeInKG()+" and "+"ID:"+final_array.get(i).getBagID()+"KG:"+final_array.get(i+1).getBagSizeInKG()+ " >> ";
+            finalResult+=" ID: "+final_array.get(i).getBagID()+" KG: "+final_array.get(i).getBagSizeInKG()+" and "+"ID: "+final_array.get(i+1).getBagID()+" KG: "+final_array.get(i+1).getBagSizeInKG()+ " >> ";
         }
         return finalResult;
 
