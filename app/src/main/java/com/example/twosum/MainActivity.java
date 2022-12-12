@@ -18,48 +18,55 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private final String json_for_testing = "[\n" + // This json when testing should only pick up indexs at 3 and 5
+    private final String json_for_testing = "[\n" +
             "  {\n" +
             "    \"id\": 1,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 2,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 3,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 4,\n" +
-            "    \"kg\": 1.5\n" +
+            "    \"kg\": 1.3\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 5,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1.6\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 6,\n" +
-            "    \"kg\": 1.5\n" +
+            "    \"kg\": 1.2\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 7,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1.9\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 8,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1.5\n" +
             "  },\n" +
             "  {\n" +
             "    \"id\": 9,\n" +
-            "    \"kg\": 4\n" +
+            "    \"kg\": 1.3\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"id\": 10,\n" +
+            "    \"kg\": 1.4\n" +
             "  }\n" +
-            "]";
+            "]"; //
+
 
     private final String json_for_testing1 = "[\n" + // This is a real data alike json.
             "  {\n" +
@@ -99,7 +106,97 @@ public class MainActivity extends AppCompatActivity {
             "    \"kg\": 1.5\n" +
             "  }\n" +
             "]";
+    private final String json_for_testing2 = "[\n" +
+            "  {\n" +
+            "    \"id\": 1,\n" +
+            "    \"kg\": 1.0\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 2,\n" +
+            "    \"kg\": 1.0\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 3,\n" +
+            "    \"kg\": 1.0\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 4,\n" +
+            "    \"kg\": 1.2\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 5,\n" +
+            "    \"kg\": 1.3\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 6,\n" +
+            "    \"kg\": 1.1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 7,\n" +
+            "    \"kg\": 1.2\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 8,\n" +
+            "    \"kg\": 1.4\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 9,\n" +
+            "    \"kg\": 1.5\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"id\": 10,\n" +
+            "    \"kg\": 1.6\n" +
+            "  }\n" +
+            "]";
+    private  String json_for_testing3 = "[\n" +
+            "  {\n" +
+            "    \"id\": 1,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 2,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 3,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 4,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 5,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 6,\n" +
+            "    \"kg\": 1\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 7,\n" +
+            "    \"kg\": 1.8\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 8,\n" +
+            "    \"kg\": 1.7\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": 9,\n" +
+            "    \"kg\": 1.2\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"id\": 10,\n" +
+            "    \"kg\": 1.3\n" +
+            "  }\n" +
+            "]";
 
+
+    //Inner classes
+    // An object to help manage the steps array.
+    class sortObj { //
+        ArrayList<Integer> sortList = new ArrayList<Integer>();
+    }
 
     // Views
     private Button addBagBtn,ResetBtn,runTest;
@@ -114,8 +211,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<BagObj> only3kg_bags_Array = new ArrayList<>();
     // this array would hold the sorted results.
     private ArrayList<BagObj> final_array = new ArrayList<>();
-
-    // Counters
 
 
     private int total_bags = 0; // how many bags already added.
@@ -218,32 +313,139 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private String CalcSteps() {
         String finalResult = "";
-        for(int i=0;i<only3kg_bags_Array.size();i++){
-            finalResult+="ID:"+only3kg_bags_Array.get(i).getBagID()+"KG:"+only3kg_bags_Array.get(i).getBagSizeInKG()+" >> ";
+        for (int i = 0; i < only3kg_bags_Array.size(); i++) {
+            finalResult += "ID:" + only3kg_bags_Array.get(i).getBagID() + "KG:" + only3kg_bags_Array.get(i).getBagSizeInKG() + "+\n";
         }
 
         ArrayList<BagObj> tempArray = new ArrayList<>();
+        ArrayList<Integer> addedIds = new ArrayList<>();
         tempArray.addAll(under3kg_bags_Array);
-        int tempSize = tempArray.size();
-        for(int j=0;j<tempSize;j++){
-            int[]  twosumArray = indicesSumOfTwo(tempArray,3.0);
-            for(int i = 0 ; i < twosumArray.length;i++){
-                if(twosumArray[i]!=-1) {
-                    findAndRemoveByBagID(tempArray, twosumArray[i]);
-                    final_array.add(findBagById(under3kg_bags_Array, twosumArray[i]));
+        Collections.sort(tempArray, new Comparator<BagObj>() {
+            @Override
+            public int compare(BagObj lhs, BagObj rhs) {
+                return Double.compare(lhs.getBagSizeInKG(),rhs.getBagSizeInKG());
+            }
+        });
+
+        // try matching using two sum algo
+        double target = 3.0;
+        for (int i = 0; i < tempArray.size(); i++) {
+            int[] twosumArray = indicesSumOfTwo(tempArray, target);
+            if (twosumArray[0] != -1) {
+                final_array.add(findBagById(under3kg_bags_Array, twosumArray[0]));
+                final_array.add(findBagById(under3kg_bags_Array, twosumArray[1]));
+                addedIds.add(twosumArray[0]);
+                addedIds.add(twosumArray[1]);
+                findAndRemoveByBagID(tempArray, twosumArray[0]);
+                findAndRemoveByBagID(tempArray, twosumArray[1]);
+
+            }
+        }
+        // Add to final String
+        for(int i = 0 ; i < final_array.size() ; i+=2){
+            finalResult+=" ID:"+final_array.get(i).getBagID()+" KG: "+final_array.get(i).getBagSizeInKG()+"  and  " +
+                    ""+"ID: "+final_array.get(i+1).getBagID()+" KG: "+final_array.get(i+1).getBagSizeInKG()+"\n";
+        }
+
+
+/** disabled due to a bug I cannot figure now ( id miss-match ) , but it should had been part of the process.
+ *
+        // Try matching while looking for highest score for two.
+        for(int i = 0 ; i < tempArray.size() ; i ++ ){
+            int[] ids = getHigestScore(tempArray);
+            BagObj bag1  = findBagById(tempArray,ids[0]);
+            BagObj bag2  = findBagById(tempArray,ids[1]);
+            finalResult += " ID: " + bag1.getBagID() + " KG: " + bag1.getBagSizeInKG()+" and "+" ID: " + bag2.getBagID() + " KG: " + bag2.getBagSizeInKG()+"\n";
+            tempArray.remove(findBagById(tempArray,ids[0]));
+            tempArray.remove(findBagById(tempArray,ids[1]));
+        }
+**/
+
+        // try matching greedy for two or more
+        if(tempArray.size()>1) {
+            ArrayList<sortObj> stepsArray = new ArrayList<sortObj>(); // saving steps.
+            double sum = 0;
+            sortObj sumObj = new sortObj();
+            for (int i = 0; i < tempArray.size(); i++) {
+                sum += tempArray.get(i).getBagSizeInKG();
+                if (sum > 3) {
+                    stepsArray.add(sumObj);
+                    i--;
+                    sum = 0;
+                    sumObj = new sortObj();
+                } else if (sum < 3) {
+                    sumObj.sortList.add(i);
+
+                } else if (sum == 3) {
+                    sumObj.sortList.add(i);
+                    stepsArray.add(sumObj);
+                    sum = 0;
+                    sumObj = new sortObj();
                 }
             }
 
+            // Adding to final string.
+            for (int i = 0; i < stepsArray.size(); i++) {
+                finalResult += "\n";
+                for (int j = 0; j < stepsArray.get(i).sortList.size(); j++) {
+                    addedIds.add(tempArray.get(stepsArray.get(i).sortList.get(j)).getBagID());
+                    if(j==0 || (j==1 & stepsArray.get(i).sortList.size()>2)){ // and and / and and and
+                        finalResult += " ID: " + tempArray.get(stepsArray.get(i).sortList.get(j)).getBagID() + " KG: " + tempArray.get(stepsArray.get(i).sortList.get(j)).getBagSizeInKG()+" and ";
+                    }else{
+                        finalResult += " ID: " + tempArray.get(stepsArray.get(i).sortList.get(j)).getBagID() + " KG: " + tempArray.get(stepsArray.get(i).sortList.get(j)).getBagSizeInKG()+"\n";
+                    }
+
+                }
+            }
+
+            // Checking for missing bags.
+            for(int i = 0 ; i < tempArray.size() ; i ++){
+                if(!isIdAdded(addedIds , tempArray.get(i).getBagID())){
+                    finalResult += "\n";
+                    finalResult += " ID: " + tempArray.get(i).getBagID() + " KG: " + tempArray.get(i).getBagSizeInKG();
+                }
+            }
         }
-        for(int i = 0 ; i < final_array.size() ; i+=2){
-            finalResult+=" ID: "+final_array.get(i).getBagID()+" KG: "+final_array.get(i).getBagSizeInKG()+" and "+"ID: "+final_array.get(i+1).getBagID()+" KG: "+final_array.get(i+1).getBagSizeInKG()+ " >> ";
-        }
+
         return finalResult;
 
     }
 
+    // Finding the highest score of ( two bags) in the current bags stack . o(n^2)
+    private int[] getHigestScore(ArrayList<BagObj> array){
+        double highestScore = 0.0;
+        int[] ids = new int[2];
+        for(int i = 0 ; i < array.size() ; i ++){
+            for(int j = 1; j < array.size()-1;j++){
+                double sum = array.get(i).getBagSizeInKG()+array.get(j).getBagSizeInKG();
+                if(sum==3){
+                    sum = 0;
+                }else if(sum>3){
+                    sum = 0;
+                }else if(sum<3 & sum>highestScore){
+                    ids[0] = array.get(i).getBagID();
+                    ids[1] = array.get(j).getBagID();
+                    highestScore = sum;
+                    sum = 0;
+                }
+            }
+        }
+        return ids;
+    }
+
+
+    // When  an array is with an odd size , the last object could be missing .
+    private boolean isIdAdded(ArrayList<Integer> ArrayToCheck , int id){
+        for(int i = 0 ; i < ArrayToCheck.size() ; i++){
+            if(ArrayToCheck.get(i)==id){
+                return true;
+            }
+        }
+        return false;
+    }
     // an helper func to find  bag by id when given an array. o(N).
     private BagObj findBagById(ArrayList<BagObj> arrayList , int bagID){
         for(int i  = 0 ; i < arrayList.size() ; i++){
@@ -262,6 +464,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     // LeetCode's snippet 'Two Sum' , changed to be able to handle ArrayList of type BagObj , this solution is also o(n).
     public static int[] indicesSumOfTwo(ArrayList<BagObj> numbers, double expectedResult) {
         Map<Double, Integer> map = new HashMap<>();
@@ -281,7 +484,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Made it for myself but decided to keep it for you guys if you might want to use it before doing stuff manually.
     public void runTests() throws JSONException {
-        JSONArray jsonArray = new JSONArray(json_for_testing1);
+        JSONArray jsonArray = new JSONArray(json_for_testing2);
 
         for(int i=0;i<jsonArray.length();i++) {
             BagObj bagObj = new BagObj();
@@ -300,4 +503,5 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("finalString",finalString);
         startActivity(i);
     }
+
 }
